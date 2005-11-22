@@ -1,0 +1,10 @@
+Changes
+MANIFEST
+Makefile.PL
+PowerSet.pm
+README
+eg/add
+eg/sel
+t/00-basic.t
+t/01-method.t
+META.yml                                 Module meta-data (added by MakeMaker)
