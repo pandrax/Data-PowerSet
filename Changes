@@ -1,5 +1,10 @@
 Revision history for Perl extension Data::PowerSet
 
-0.01  2005-11-17 15:17:48 UTC
+0.02 2005-11-23 09:37:12 UTC
+    - Added a link to C<List::PowerSet>, as noted by
+      Robert Rothenberg. Fixed up the POD, which was
+      seriously messed up. No changes in functionality.
+
+0.01 2005-11-17 15:17:48 UTC
     - original version; created by genpm v1.1
 

@@ -9,7 +9,7 @@ use strict;
 use Exporter;
 
 use vars qw/$VERSION @ISA @EXPORT_OK/;
-$VERSION = '0.01';
+$VERSION = '0.02';
 @ISA     = ('Exporter');
 
 =head1 NAME
@@ -18,8 +18,8 @@ Data::PowerSet - Generate all subsets of a list of elements
 
 =head1 VERSION
 
-This document describes version 0.01 of Data::PowerSet,
-released 2005-11-22.
+This document describes version 0.02 of Data::PowerSet,
+released 2005-11-23.
 
 =head1 SYNOPSIS
 
@@ -132,7 +132,12 @@ be supplied, to change the way the object behaves.
 
 Minimum number of elements present in the selection.
 
-  my $ps = Data::PowerSet->new( {min=>1}, 2, 3, 5, 8, 11 );
+Note that the empty set (no elements) is quite valid, according to
+the mathematical definition of a power set. If this is not what you
+expect, setting C<min> to 1 will effectively cause the empty set to
+be excluded from the result.
+
+  my $ps = Data::PowerSet->new( {min=>2}, 2, 3, 5, 8, 11 );
 
 In the above object, no returned list will contain fewer
 than 2 elements.
@@ -273,6 +278,11 @@ None.
 
 =head1 NOTES
 
+Power sets grow exponentially. A power set of 10 elements returns
+a more than one thousand results. A power set of 20 elements contains
+more than one million results. The module is not expected to be put
+to use in larger sets.
+
 A power set, by definition, includes the set of no elements and
 the set of all elements. If these results are not desired, the
 C<min> and C<max> methods or properties can be used to exclude
@@ -282,17 +292,29 @@ them from the results.
 
 =over 8
 
+=item L<List::PowerSet>
+
+Another module that generates power sets. If I had managed to find
+it in a search beforehand, I probably would have used it instead.
+Nonetheless, C<Data::PowerSet> has a couple of features not
+present in C<List::PowerSet>, but otherwise both can be used
+pretty much interchangeably.
+
 =item L<Algorithm::Combinatorics>
 
-General information about Perl.
+A fast (no stacks, no recursion) method for generating permutations
+and combinations of a set. A power set is merely the union of all
+combinations (of differing lengths).
+
+=item L<http://en.wikipedia.org/wiki/Power_set>
+
+The wikipedia definition of a power set.
 
 =back
 
 =head1 BUGS
 
-None known.
-
-Please report all bugs at
+None known. Please report all bugs at
 L<http://rt.cpan.org/NoAuth/Bugs.html?Dist=Data-PowerSet|rt.cpan.org>
 
 Make sure you include the output from the following two commands:
@@ -302,7 +324,8 @@ Make sure you include the output from the following two commands:
 
 =head1 ACKNOWLEDGEMENTS
 
-None.
+This module is dedicated to Estelle Souche, who pointed out the very
+elegant and obvious algorithm. Smylers suggested the name.
 
 =head1 AUTHOR
 
@@ -323,190 +346,3 @@ it under the same terms as Perl itself.
 =cut
 
 'The Lusty Decadent Delights of Imperial Pompeii';
-__END__
-}
-
-=head1 METHODS
-
-=over 8
-
-=item new
-
-Creates a new C<Data::PowerSet> object. 
-
-  my $d = Data::SelectWithoutReplace( 1, 4, 9, 16 );
-
-You can also supply a reference to a hash as the first parameter to
-adjust the behaviour of the object
-
-  my $d = Data::SelectWithoutReplace(
-    { min => 1, max => 3 },
-    1, 4, 9, 16,
-  );
-
-=over 8
-
-=item B<min>
-
-Minimum number of elements present in the selection. Note that the
-empty set (no elements) is quite valid, according to the mathematical
-definition of a power set. If this is not what you expect, setting
-C<min> to a value of one will effectively cause the empty set to be
-excluded from the result.
-
-=item B<max>
-
-Maximum number of elements present in the selection.
-
-=back
-
-=cut
-
-sub new {
-    my $class = shift;
-    my %args;
-    if( ref($_[0]) eq 'HASH' ) {
-        %args = %{shift(@_)};
-    }
-    else {
-        $args{data} = [@_],
-    }
-    $args{current} = 2**@{$args{data}}-1;
-
-    $args{min} =
-        exists $args{min}
-        ?  $args{min} < 0
-            ? 0 : $args{min}
-        : 0
-    ;
-
-    $args{max} =
-        exists $args{max}
-        ?  $args{max} > @{$args{data}}
-            ? @{$args{data}} : $args{max}
-        : @{$args{data}}
-    ;
-
-
-    ($args{min}, $args{max}) = ($args{max}, $args{min})
-        if $args{max} < $args{min};
-    return bless \%args, $class;
-}
-
-=item next
-
-Returns a reference to an array containing the next combination of
-elements from the original list;
-
-=cut
-
-sub next {
-    my $self = shift;
-    my $ok = 0;
-    my @set;
-    until( $ok ) {
-        return undef unless $self->{current} >= 0;
-        my $mask   = $self->{current}--;
-        my $offset = 0;
-        @set = ();
-        while( $mask ) {
-            push @set, $self->{data}[$offset] if $mask & 1;
-            $mask >>= 1;
-            ++$offset;
-        }
-        $ok = 1 if @set >= $self->{min} and @set <= $self->{max};
-    }
-    return \@set;
-}
-
-=item reset
-
-Restart from the first combination of the list.
-
-=cut
-
-sub reset {
-    my $self = shift;
-    $self->{current} = 2**@{$self->{data}}-1;
-}
-
-=item data
-
-Accept a new list of elements from which to draw combinations.
-
-=cut
-
-sub data {
-    my $self = shift;
-    $self->{data} = [@_],
-    $self->{current} = 2**@{$self->{data}}-1;
-
-    $self->{min} = @{$self->{data}} if $self->{min} > @{$self->{data}};
-    $self->{max} = @{$self->{data}} if $self->{max} > @{$self->{data}};
-}
-
-=back
-
-=head1 DIAGNOSTICS
-
-None.
-
-=head1 NOTES
-
-Power sets grow exponentially. A power set of 10 elements returns
-a more than one thousand results. A power set of 20 elements contains
-more than one million results. The module is not expected to be put
-to use in larger sets.
-
-=head1 SEE ALSO
-
-=over 8
-
-=item L<Algorithm::Combinatorics>
-
-A fast (no stacks, no recursion) method for generating permutations
-and combinations of a set. A power set is merely the union of all
-combinations (of differing lengths).
-
-=item L<http://en.wikipedia.org/wiki/Power_set>
-
-The wikipedia definition of a power set.
-
-=back
-
-=head1 BUGS
-
-None known.
-
-Please report all bugs at
-L<http://rt.cpan.org/NoAuth/Bugs.html?Dist=Data-PowerSet|rt.cpan.org>
-
-Make sure you include the output from the following two commands:
-
-  perl -MData::PowerSet -le 'print Data::PowerSet::VERSION'
-  perl -V
-
-=head1 ACKNOWLEDGEMENTS
-
-This module is dedicated to Estelle Souche, who pointed out the very
-elegant and obvious algorithm. Smylers suggested the name.
-
-=head1 AUTHOR
-
-David Landgren, copyright (C) 2005. All rights reserved.
-
-http://www.landgren.net/perl/
-
-If you use this module, I'd love to hear about it.  If you want to
-be informed of updates, send me a note. You know my first name, you
-know my domain. Can you guess my e-mail address?
-
-=head1 LICENSE
-
-This library is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself.
-
-=cut
-
-'The Lusty Decadent Delights of Imperial Pompeii';
-__END__
