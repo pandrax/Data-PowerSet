@@ -1,4 +1,4 @@
-The file is the README for Data::PowerSet version 0.02
+The file is the README for Data::PowerSet version 0.03
 
 INSTALLATION
 
@@ -61,7 +61,7 @@ David Landgren
 
 COPYRIGHT
 
-This module is copyright (C) David Landgren 2005.
+This module is copyright (C) David Landgren 2005-2006.
 All rights reserved.
 
 LICENSE

@@ -1,6 +1,6 @@
 # Data::PowerSet.pm
 #
-# Copyright (c) 2005 David Landgren
+# Copyright (c) 2005-2006 David Landgren
 # All rights reserved
 
 package Data::PowerSet;
@@ -9,7 +9,7 @@ use strict;
 use Exporter;
 
 use vars qw/$VERSION @ISA @EXPORT_OK/;
-$VERSION = '0.02';
+$VERSION = '0.03';
 @ISA     = ('Exporter');
 
 =head1 NAME
@@ -18,8 +18,8 @@ Data::PowerSet - Generate all subsets of a list of elements
 
 =head1 VERSION
 
-This document describes version 0.02 of Data::PowerSet,
-released 2005-11-23.
+This document describes version 0.03 of Data::PowerSet, released
+2006-11-03.
 
 =head1 SYNOPSIS
 

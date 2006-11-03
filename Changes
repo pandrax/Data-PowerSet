@@ -1,5 +1,9 @@
 Revision history for Perl extension Data::PowerSet
 
+0.03 2006-11-03 13:26:31 UTC
+    - Clarified the license in Makefile.PL (requires a
+      modern version of ExtUtils::MakeMaker).
+
 0.02 2005-11-23 09:37:12 UTC
     - Added a link to C<List::PowerSet>, as noted by
       Robert Rothenberg. Fixed up the POD, which was

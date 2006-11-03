@@ -1,6 +1,6 @@
 # generate Makefile for building Data::PowerSet
 #
-# Copyright (C) 2005 David Landgren
+# Copyright (C) 2005-2006 David Landgren
 
 use strict;
 use ExtUtils::MakeMaker;
@@ -14,6 +14,9 @@ else {
 }
 
 WriteMakefile(
-    NAME         => 'Data::PowerSet',
-    VERSION_FROM => 'PowerSet.pm',
+    NAME          => 'Data::PowerSet',
+    VERSION_FROM  => 'PowerSet.pm',
+    ABSTRACT_FROM => 'PowerSet.pm',
+    AUTHOR        => 'David Landgren',
+    LICENSE       => 'perl',
 );
