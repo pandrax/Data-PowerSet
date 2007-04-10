@@ -1,6 +1,6 @@
 # Data::PowerSet.pm
 #
-# Copyright (c) 2005-2006 David Landgren
+# Copyright (c) 2005-2007 David Landgren
 # All rights reserved
 
 package Data::PowerSet;
@@ -9,7 +9,7 @@ use strict;
 use Exporter;
 
 use vars qw/$VERSION @ISA @EXPORT_OK/;
-$VERSION = '0.03';
+$VERSION = '0.04';
 @ISA     = ('Exporter');
 
 =head1 NAME
@@ -18,15 +18,15 @@ Data::PowerSet - Generate all subsets of a list of elements
 
 =head1 VERSION
 
-This document describes version 0.03 of Data::PowerSet, released
-2006-11-03.
+This document describes version 0.04 of Data::PowerSet, released
+2007-04-10.
 
 =head1 SYNOPSIS
 
   use Data::PowerSet 'powerset';
 
-  my @powerset = powerset( 3, 1, 4 );
-  for my $p (@powerset) {
+  my $powerset = powerset( 3, 1, 4 );
+  for my $p (@$powerset) {
     print "@$p\n";
   }
 
@@ -288,6 +288,8 @@ the set of all elements. If these results are not desired, the
 C<min> and C<max> methods or properties can be used to exclude
 them from the results.
 
+This module works with perl version 5.005_04 and above.
+
 =head1 SEE ALSO
 
 =over 8
@@ -329,7 +331,7 @@ elegant and obvious algorithm. Smylers suggested the name.
 
 =head1 AUTHOR
 
-David Landgren, copyright (C) 2005. All rights reserved.
+David Landgren, copyright (C) 2005-2007. All rights reserved.
 
 http://www.landgren.net/perl/
 

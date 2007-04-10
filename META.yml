@@ -1,6 +1,6 @@
 --- #YAML:1.0
 name:                Data-PowerSet
-version:             0.03
+version:             0.04
 abstract:            Generate all subsets of a list of elements
 license:             perl
 generated_by:        ExtUtils::MakeMaker version 6.31

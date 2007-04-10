@@ -1,4 +1,4 @@
-The file is the README for Data::PowerSet version 0.03
+The file is the README for Data::PowerSet version 0.04
 
 INSTALLATION
 
@@ -16,7 +16,8 @@ This module requires the following modules for thorough testing:
     Test::Pod::Coverage
 
 But really, only Test::More is necessary. It can also make use of
-Devel::Cover if available.
+Devel::Cover if available. While the tests might not run on perl
+5.005_04, the code itself appears to work correctly.
 
 UNINSTALLATION
 
@@ -48,7 +49,8 @@ USAGE
 
 STATUS
 
-This module is under active development.
+This module is considered mature, further development is not a
+high priority.
 
 ACKNOWLEDGEMENTS
 
@@ -61,7 +63,7 @@ David Landgren
 
 COPYRIGHT
 
-This module is copyright (C) David Landgren 2005-2006.
+This module is copyright (C) David Landgren 2005-2007.
 All rights reserved.
 
 LICENSE
