@@ -1,4 +1,5 @@
 Changes
+LICENSE
 MANIFEST
 MANIFEST.SKIP
 Makefile.PL
@@ -8,4 +9,5 @@ eg/add
 eg/sel
 t/00-basic.t
 t/01-method.t
+t/02-pod.t
 META.yml                                 Module meta-data (added by MakeMaker)

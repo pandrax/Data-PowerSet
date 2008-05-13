@@ -3,11 +3,11 @@
 # Test suite for Data::PowerSet
 # Make sure the basic stuff works
 #
-# copyright (C) 2005 David Landgren
+# copyright (C) 2005-2008 David Landgren
 
 use strict;
 
-eval qq{ use Test::More tests => 10 };
+eval qq{ use Test::More tests => 7 };
 if( $@ ) {
     warn "# Test::More not available, no tests performed\n";
     print "1..1\nok 1\n";
@@ -34,26 +34,6 @@ diag( "testing Data::PowerSet v$Data::PowerSet::VERSION" );
     cmp_ok( $t->{max},     '==', 3, 'default max', );
     cmp_ok( $t->count,     '==', 3, 'default count()', );
     cmp_ok( $t->{current}, '==', (2**@set)-1, 'default current' );
-}
-
-##########################################################
-
-SKIP: {
-    skip( 'Test::Pod not installed on this system', 2 )
-        unless do {
-            eval "use Test::Pod";
-            $@ ? 0 : 1;
-        };
-
-    pod_file_ok( 'PowerSet.pm' );    pod_file_ok( 'eg/sel' );}
-
-SKIP: {
-    skip( 'Test::Pod::Coverage not installed on this system', 1 )
-        unless do {
-            eval "use Test::Pod::Coverage";
-            $@ ? 0 : 1;
-        };
-    pod_coverage_ok( 'Data::PowerSet', 'POD coverage is go!' );
 }
 
 cmp_ok( $_, 'eq', $Unchanged, '$_ has not been altered' );

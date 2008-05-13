@@ -1,6 +1,6 @@
 # Data::PowerSet.pm
 #
-# Copyright (c) 2005-2007 David Landgren
+# Copyright (c) 2005-2008 David Landgren
 # All rights reserved
 
 package Data::PowerSet;
@@ -9,7 +9,7 @@ use strict;
 use Exporter;
 
 use vars qw/$VERSION @ISA @EXPORT_OK/;
-$VERSION = '0.04';
+$VERSION = '0.05';
 @ISA     = ('Exporter');
 
 =head1 NAME
@@ -18,8 +18,8 @@ Data::PowerSet - Generate all subsets of a list of elements
 
 =head1 VERSION
 
-This document describes version 0.04 of Data::PowerSet, released
-2007-04-10.
+This document describes version 0.05 of Data::PowerSet, released
+2008-05-13.
 
 =head1 SYNOPSIS
 
@@ -331,7 +331,7 @@ elegant and obvious algorithm. Smylers suggested the name.
 
 =head1 AUTHOR
 
-David Landgren, copyright (C) 2005-2007. All rights reserved.
+David Landgren, copyright (C) 2005-2008. All rights reserved.
 
 http://www.landgren.net/perl/
 
